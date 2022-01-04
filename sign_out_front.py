@@ -14,10 +14,10 @@ class Sign:
 
 class Student:
     def __init__(self, min_speed_lower, max_speed_lower, min_speed_higher, max_speed_higher, min_punc, max_punc, ):
-        #makes a list of arrival times. it is in the format of year, month, day, hour, minute. the date must be included so the time can be added to or subtracted from (which is think is dumb)
+        #makes a list of arrival times. it is in the format of year, month, day, hour, minute. the date must be included so the time can be added to or subtracted from
         arrive_times = [datetime(2021, 1, 1,8), datetime(2021, 1, 1,9,40), datetime(2021, 1, 1,11,10), datetime(2021, 1, 1,12,50), datetime(2021, 1, 1,14,30), datetime(2021, 1, 1,16,50), datetime(2021, 1, 1,17, 50), datetime(2021, 1, 1,19)]
         names = ["Lucas", "Will", "Noah", "Alex", "Josh", "Doug", "Mike", "John", "David", "Aaron", "Joye", "Abby", "Sofia", "Fiona", "Zoey", "Lily", "Hannah", "Bella", "Anna", "Elena"]
-        #in my experience i had the same schedule in pairs for monday and wednesday and tuesday and thursday, so i did that here
+        #in my experience I had the same schedule in pairs for monday and wednesday and tuesday and thursday, so i did that here
         self.mw = choice(arrive_times)
         self.tt = choice(arrive_times)
         #this is their punctuality, or the % chance of them being late on any given day
@@ -39,22 +39,24 @@ class Student:
         if day == 2 or day == 4:
             arrive = self.tt
         
-        #picks a nnmber between one and ten. if that number is less than their puncuality, they are early. this is my way of making a variable a percentage
+        #picks a nunmber between one and ten. if that number is less than their puncuality, they are early. this is my way of making a variable a percentage
         odds = [1, 2, 3, 4, 5, 6, 7, 8 ,9, 10]
         tardy = choice(odds)
         if tardy <= self.punc:
             # if they are early, subtract some time amount of minutes between one and ten from their arrival time
             arrive -= timedelta(minutes=randint(1, 10))
-            #if theyre early, theyll be more likely to drive slowly, and see more slides
+            #if they're early, they'll be more likely to drive slowly, and see more slides
             self.speed = randint(self.min_speed_lower, self.max_speed_lower)
         else:
             #opposite is true for if they are late
             arrive += timedelta(minutes=randint(1,10))
             self.speed = randint(self.min_speed_higher, self.max_speed_higher) 
 
+        #if 24 hour cycle is on, simulation will run for the length of the week
         if cycle_24 == True:
              t = datetime(2021, 1, 1, 0)
              loops = 4320
+        #if 24 hour cycle is off, it will only run for one day and will pick a random slide each time
         else:
             t = datetime(2021, 1, 1, 7,50)
             loops = 2046
@@ -63,7 +65,6 @@ class Student:
                 self.temp = self.temp.next 
         
         #this loop will simulate the school day, in 20 second increments. if the time of the day is equal to their arrival time, it will run the function to see the slides
-        #keep in mind that if the arrival time is altered by seconds, this whole thing falls apart because it has to be a multiple of 20 seconds
         for i in range(loops):
             self.temp = self.temp.next
             if t == arrive:
@@ -75,7 +76,7 @@ class Student:
         #first we find the feet per second, found by multiplying their current speed by 1.47
         fps = self.speed * 1.47
         #we divide the number of feet where they can see the sign and divide it by the feet per second, giving us the number of seconds they can see the sign for
-        #i found 2205 by taking the mean amount of time of 60 seconds, assuming thats at the speed limit of 25 mph, finding the ft/s of 25 nad multiplying that by 60
+        #i found 2205 by taking the mean amount of time of 60 seconds, assuming thats at the speed limit of 25 mph, finding the ft/s of 25 and multiplying that by 60
         time_seeing = 2205 / fps
         #number of slides seen is the number of seconds divided by 20, rounded up. note that a decimal number refers to the amount of time seeing the slide, not the slide itself
         num_of_slides = ceil(time_seeing / 20)
