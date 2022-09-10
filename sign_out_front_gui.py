@@ -79,7 +79,7 @@ class Sign_GUI:
     def start_program(self):
         #this is my really stupid but effective way of clearing the last runs results
         for i in range(17):
-            clear_results = tk.Label(window, text = '                                                                    ')
+            clear_results = tk.Label(window, text = '                                                                                   ')
             clear_results.grid(column=1, row=i)
         #creates a student with the attributes determined  by the user
         s = sign_out_front.Student(int(self.min_speed_lower.get()), int(self.max_speed_lower.get()), int(self.min_speed_higher.get()), int(self.max_speed_higher.get()), int(self.min_consist.get()), int(self.max_consist.get()))

@@ -5,7 +5,7 @@ class Node:
     def __init__(self, data):
         #the variable for the content of the item
         self.data = data
-        #this will be the connection to the next node. it is purposefully left undefined so it can be assinged later, but it needs to exist first
+        #this will be the connection to the next node. it is purposefully left undefined so it can be assigned later, but it needs to exist first
         self.next = None
 
     
